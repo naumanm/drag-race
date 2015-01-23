@@ -57,15 +57,34 @@ Status API Training Shop Blog About
 */
 
 
-window.onload = main;
+window.onload = main;  // this should call the start, not main
 
-// wrap this in a function moveCar with (carName, key)
+// Objects
+// need to define and instantiate both cars
+
+function Car() {
+	this.engine = "off";
+	this.racePosition = 0;
+}
+
+var redCar = new Car();
+var blueCar = new Car();
+
+/* start button
+
+function startGameButton () {
+	startButton = document.getElementById("startButton");
+	startButton.addEventListener("click", main);
+}
+
+*/
+
 
 // ----------------------------------------------
 // this moves both cars left and right
-function main (car1, car2) {
-	car1 = document.getElementById("car1");
-	car2 = document.getElementById("car2");
+function main () {
+	var car1 = document.getElementById("car1");
+	var car2 = document.getElementById("car2");
 	car1.style.left = "0px";
 	car2.style.left = "0px";
 	car1.style.right = "0px";
@@ -74,18 +93,26 @@ function main (car1, car2) {
 	window.addEventListener('keyup', function(event){
 
 		if (event.keyCode === 39) {
-			car1.style.left = parseInt(car1.style.left, 10) + 25 + "px";
+			car1.style.left = parseInt(car1.style.left, 10) + 10 + "px";
+			redCar.racePosition += 10;
+			console.log("redCar " + redCar.racePosition);
 		}
 
 		if (event.keyCode === 37) {
-			car1.style.left = parseInt(car1.style.left, 10) - 25 + "px";
+			car1.style.left = parseInt(car1.style.left, 10) - 10 + "px";
+			redCar.racePosition -= 10;		
+			console.log("redCar " + redCar.racePosition);
 		}
 		if (event.keyCode === 83) {
-			car2.style.left = parseInt(car2.style.left, 10) + 25 + "px";
+			car2.style.left = parseInt(car2.style.left, 10) + 10 + "px";
+			blueCar.racePosition += 10;
+			console.log("blueCar " + blueCar.racePosition);
 		}
 
 		if (event.keyCode === 65) {
-			car2.style.left = parseInt(car2.style.left, 10) - 25 + "px";
+			car2.style.left = parseInt(car2.style.left, 10) - 10 + "px";
+			blueCar.racePosition -= 10;
+			console.log("blueCar " + blueCar.racePosition);
 		}
 
 	});

@@ -32,16 +32,19 @@
 }
 
 
-
-
 #christmastree {
-	width: 100px;
-	height: 250px;
+	width: 70px;
+	height: 200px;
 	background-color: black;
 	padding-top: 5px;
 }
 
+.row {
+	display: inline-block;
+}
 
+
+/*
 #pre_stage, 
 #stage, 
 #yellow1,
@@ -50,9 +53,10 @@
 #green,
 #red
 {
-	width: 50px;
+	width: 20px;
 	height: 20px;
-	margin: 15px auto;
+	margin: 5px auto;
+	border-radius: 100%;
 }
 
 #pre_stage {
@@ -82,5 +86,5 @@
 #red{
   background-color: red;
 }
-
+*/
 

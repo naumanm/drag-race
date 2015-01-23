@@ -17,18 +17,22 @@ the tree
 car crosses finish, saves score in array, changes UI, 
 
 Drag Race!
-Build an in-browser game that will let a player race their awesome dragster on a race-track, by using the keyboard to control it.
+Build an in-browser game that will let a player race their awesome dragster 
+on a race-track, by using the keyboard to control it.
 
 What should it do?
 
-When the game starts, the car should be in the pre-staging area and the first set of yellow lights should be on (pre-stage)
+When the game starts, the car should be in the pre-staging area and the first 
+set of yellow lights should be on (pre-stage)
 The game should start with a dragster that has its engine off at the dragstrip
 The player should be able to start the engine with one of the keyboard keys
-After starting the engine, the player can move the dragster into the staging area, crossing the pre-staging line
+After starting the engine, the player can move the dragster into the staging 
+area, crossing the pre-staging line
 Once the dragster is in the staging area, the "stage" light should turn on
-At this point, the next 3 sets of light should turn on, with 0.5 seconds between each set
-The second to last set is the set of green lights, which should indicate the start of the race
-If the player attempts to drive the car before the green lights are turned on, the last set of lights should be lit in red, and the race is over
+At this point, the next 3 sets of light should turn on, with 0.5 seconds between 
+each set The second to last set is the set of green lights, which should 
+indicate the start of the race If the player attempts to drive the car before
+the green lights are turned on, the last set of lights should be lit in red, and the race is over
 If the light is green, the player should be able to race their dragster down the racetrack
 Crossing the finish line is the end of the race
 Use HTML, CSS, some images from google, and JS to build the game
@@ -52,31 +56,45 @@ The AI should be able to navigate the race track, and your car should only be ab
 Status API Training Shop Blog About
 */
 
-window.onload = function() {
 
+window.onload = main;
 
 // wrap this in a function moveCar with (carName, key)
 
 // ----------------------------------------------
-// this moves the red block "car" left and right
-var myDiv = document.getElementById("car1");
-myDiv.style.left = "0px";
-myDiv.style.right = "0px";
+// this moves both cars left and right
+function main (car1, car2) {
+	car1 = document.getElementById("car1");
+	car2 = document.getElementById("car2");
+	car1.style.left = "0px";
+	car2.style.left = "0px";
+	car1.style.right = "0px";
+	car2.style.right = "0px";
 
-window.addEventListener('keyup', function(event){
+	window.addEventListener('keyup', function(event){
 
-	if (event.keyCode === 39) {
-		myDiv.style.left = parseInt(myDiv.style.left, 10) + 25 + "px";
-	}
+		if (event.keyCode === 39) {
+			car1.style.left = parseInt(car1.style.left, 10) + 25 + "px";
+		}
 
-	if (event.keyCode === 37) {
-		myDiv.style.left = parseInt(myDiv.style.left, 10) - 25 + "px";
-	}
+		if (event.keyCode === 37) {
+			car1.style.left = parseInt(car1.style.left, 10) - 25 + "px";
+		}
+		if (event.keyCode === 83) {
+			car2.style.left = parseInt(car2.style.left, 10) + 25 + "px";
+		}
 
-});
+		if (event.keyCode === 65) {
+			car2.style.left = parseInt(car2.style.left, 10) - 25 + "px";
+		}
+
+	});
+}
 
 
 
 
-};
+
+
+
 

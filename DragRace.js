@@ -75,34 +75,72 @@ var blueCar = new Car();
 function startGameButton () {
 	startButton = document.getElementById("startButton");
 	startButton.addEventListener("click", main);
+	set Car engines to on
 }
 
 */
 
+function checkStaged () {
+	console.log("redCar " + redCar.racePosition);
+	console.log("redCar " + blueCar.racePosition);
+
+	if (redCar.racePosition > 70) {
+		console.log("in lightChanger");
+		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
+	}
+	if (blueCar.racePosition > 70) {
+		console.log("in lightChanger");
+		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
+	}
+
+	if ((redCar.racePosition > 70) && (redCar.racePosition > 70)) {
+
+		console.log("START THE CLOCK!");
+	}
+}
+
+function checkStart() {
+
+}
 
 // ----------------------------------------------
 // this moves both cars left and right
 function main () {
 	var car1 = document.getElementById("car1");
 	var car2 = document.getElementById("car2");
-	car1.style.left = "0px";
+
+	// car1 = initializeCar(car1);
+	// car2 = initializeCar(car2);
+
+	// function initializeCar (car) {
+	// 	return (car.style.left = "0px");
+	// }
+
+	car1.style.left = "0px";	
 	car2.style.left = "0px";
 	car1.style.right = "0px";
 	car2.style.right = "0px";
 
 	window.addEventListener('keyup', function(event){
 
+
+	function moveCar(myKeyCode) {
+
+	}
+
+
 		if (event.keyCode === 39) {
 			car1.style.left = parseInt(car1.style.left, 10) + 10 + "px";
 			redCar.racePosition += 10;
-			console.log("redCar " + redCar.racePosition);
+			checkStaged();
+			checkStart();
 		}
 
 		if (event.keyCode === 37) {
 			car1.style.left = parseInt(car1.style.left, 10) - 10 + "px";
 			redCar.racePosition -= 10;		
-			console.log("redCar " + redCar.racePosition);
 		}
+
 		if (event.keyCode === 83) {
 			car2.style.left = parseInt(car2.style.left, 10) + 10 + "px";
 			blueCar.racePosition += 10;
@@ -116,12 +154,5 @@ function main () {
 		}
 
 	});
+
 }
-
-
-
-
-
-
-
-

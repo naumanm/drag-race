@@ -6,26 +6,44 @@
   position: absolute;
 }
 
-#christmastree {
-  width: 100px;
-  height: 210px;
-  background-color: black;
-  margin-top: 10;
+#car1, #car2 {
+  width: 50px;
+  height: 25px;
+  z-index: 2;
 
 }
 
-#pre_stage {
-  height: 150;
-  width: 120;
-  z-index: 10;
-  position: relative;
+#car1 {
+  margin-top: 30px;
+  background-color: red;
+}
+
+#car2 {
+  margin-top: 90px;
   background-color: green;
-  margin: 10px;
+}
+
+#racetrack {
+  margin-top: 20px;
+  width: 700px;
+  height: 150px;
+  background-color: blue;
+  border: solid 4px black;
 }
 
 
 
-/*
+
+
+#christmastree {
+  width: 75px;
+  height: 210px;
+  border: solid 3px black;
+  margin-top: 20;
+
+}
+
+
 #pre_stage, 
 #stage, 
 #yellow1,
@@ -35,9 +53,10 @@
 #red
 {
   height: 150;
-  width: 120;
+  width: 100;
   z-index: 10;
-  position: relative;
+  margin: 10px;
+  text-align: center;
 }
 
 #pre_stage {
@@ -69,30 +88,3 @@
 }
 
 */
-
-#car1, #car2 {
-  width: 50px;
-  height: 25px;
-  z-index: 2;
-
-}
-
-#car1 {
-  margin-top: 30px;
-  background-color: red;
-}
-
-#car2 {
-  margin-top: 90px;
-  background-color: green;
-}
-
-#racetrack {
-  margin-top: 20px;
-  width: 700px;
-  height: 150px;
-  background-color: blue;
-  left: 0px;	
-  top: 0px;
-}
-

@@ -56,8 +56,7 @@ The AI should be able to navigate the race track, and your car should only be ab
 Status API Training Shop Blog About
 */
 
-
-window.onload = main;  // this should call the start, not main
+window.onload = main;
 
 // instantiate cars and game object
 
@@ -76,6 +75,7 @@ function Car() {
 	this.preStaged = false;
 	this.staged = false;
 	this.falseStart = false;
+	this.winnner = false;
 }
 
 function Game() {
@@ -121,7 +121,7 @@ function Game() {
 	checkPreStaged();
 	checkStaged();	
 	checkFalseStart();
-
+	checkFinish();
 	}); 
 }
 
@@ -137,50 +137,60 @@ function checkPreStaged () {
 }
 
 function checkStaged () {
-	//if (!checkFalseStart()) {
-		if (redCar.racePosition > 70) {
-			document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
-			redCar.Staged = true;
-		}
-		if (blueCar.racePosition > 70) {
-			document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
-			blueCar.Staged = true;
-		}
 
-		if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
-			console.log("STAGED! SAM!   Start the clock");
-			myGame.preStaged = true;
-			startTheClock();
-		}
-	//}
+	if (redCar.racePosition > 70) {
+		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
+		redCar.Staged = true;
+	}
+	if (blueCar.racePosition > 70) {
+		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
+		blueCar.Staged = true;
+	}
+
+	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
+		myGame.preStaged = true;
+		startTheClock();
+	}
 }
 
 function checkFalseStart() {
 
-//	if (myGame.started = false) {
+	if (!myGame.started) {
 
 		if (redCar.racePosition > 85) {
+			//changeLight("red");
 			document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
 			redCar.falseStart = true;
 		}
 		if (blueCar.racePosition > 85) {
+			//changeLight("red");
 			document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
 			blueCar.falseStart = true;
 		}
-//	}
+	return false;
+	} 
+}
+
+function checkFinish() {
+
+		if (redCar.racePosition > 550) {
+			alert("red wins");
+			redCar.winnner = true;
+		}
+		if (blueCar.racePosition > 550) {
+			alert("blue wins");
+			blueCar.winnner = true;
+		}
 }
 
 function startTheClock() {
-	console.log("Clock has STARTED!");
 	setTimeout(changeLight("yellow1"), 100000);
 	setTimeout(changeLight("yellow2"), 1000000);
 	setTimeout(changeLight("yellow3"), 10000000);
 	setTimeout(changeLight("start"), 100000000);
 }
 
-
 function changeLight(light) {
-	console.log(light);
 	if ((light === "yellow1") ||
 		(light === "yellow2") ||
 		(light === "yellow3")) {
@@ -192,12 +202,13 @@ function changeLight(light) {
 		document.getElementById(light + "Right").setAttribute("src", "greenOn.jpeg");
 		document.getElementById(light + "Left").setAttribute("src", "greenOn.jpeg");
 		myGame.started = true;
-		console.log(myGame);
 	}
+
+	if (light === "red") {
+		document.getElementById(light + "Right").setAttribute("src", "redOn.jpeg");
+		document.getElementById(light + "Left").setAttribute("src", "redOn.jpeg");
+		myGame.started = true;
+	}
+
 }
-
-
-
-
-
 

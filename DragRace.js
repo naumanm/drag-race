@@ -59,14 +59,23 @@ Status API Training Shop Blog About
 
 window.onload = main;  // this should call the start, not main
 
-// need to define car and game object
+// instantiate cars and game object
+
+var redCar = new Car();
+var blueCar = new Car();
+var myGame = new Game();
+
+// define car and game object
 
 function Car() {
 	this.engine = "off";
 	this.racePosition = 0;
-	this.ID;
+	this.ID = "";
 	this.left = 0;	
 	this.right = 0;
+	this.preStaged = false;
+	this.staged = false;
+	this.falseStart = false;
 }
 
 function Game() {
@@ -75,102 +84,78 @@ function Game() {
 	this.started = false;
 }
 
-// instantiate cars and game object
-var redCar = new Car();
-var blueCar = new Car();
-var myGame = new Game;
-
-/* start button
-
-function startGameButton () {
-	startButton = document.getElementById("startButton");
-	startButton.addEventListener("click", main);
-	set Car engines to on
-}
-
-*/
-
-
 // ----------------------------------------------
-// this moves both cars left and right
-function main () {
-	redCar.ID = document.getElementById("redCar");
-	blueCar.ID = document.getElementById("blueCar");
-	window.addEventListener("keyup", function(event){
+// moves cars and calls checks
+
+ function main () {
+ 	var car1 = document.getElementById("redCar");
+ 	var car2 = document.getElementById("blueCar");
+ 	car1.style.left = "0px";
+ 	car2.style.left = "0px";
+ 	car1.style.right = "0px";
+ 	car2.style.right = "0px";
+ 
+ 	window.addEventListener('keyup', function(event){
 
 	if (event.keyCode === 39) {
-
-		console.log("---------------------------------------");
-
-		console.log("Red Left = " + redCar.left);
-		console.log("Red Position = " + redCar.racePosition);
-
-		redCar.left = parseInt(redCar.left, 10) + 10 + "px";
-		redCar.racePosition += 10;
-
-		console.log("Red Left = " + redCar.left);
-		console.log("Red Position = " + redCar.racePosition);
-
-		checkPreStaged();
-		checkStaged();	
-		checkStart();
+		car1.style.left = parseInt(car1.style.left, 10) + 5 + "px";
+		redCar.racePosition += 5;
 	}
-
 	if (event.keyCode === 37) {
-		redCar.left = parseInt(redCar.left, 10) - 10 + "px";
-		redCar.racePosition -= 10;		
+		car1.style.left = parseInt(car1.style.left, 10) - 5 + "px";
+		redCar.racePosition -= 5;
 	}
-
 	if (event.keyCode === 83) {
-		blueCar.left = parseInt(blueCar.left, 10) + 10 + "px";
-		blueCar.racePosition += 10;
-		checkPreStaged();
-		checkStaged();
-		checkStart();
+		car2.style.left = parseInt(car2.style.left, 10) + 5 + "px";
+		blueCar.racePosition += 5;
 	}
-
 	if (event.keyCode === 65) {
-		blueCar.style.left = parseInt(blueCar.left, 10) - 10 + "px";
-		blueCar.racePosition -= 10;
+		car2.style.left = parseInt(car2.style.left, 10) - 5 + "px";
+		blueCar.racePosition -= 5;
 	}
 
-});
+	checkPreStaged();
+	checkStaged();	
+	checkFalseStart();
+
+	}); 
+}
 
 function checkPreStaged () {
 	if (redCar.racePosition > 50) {
 		document.getElementById("preStageLeft").setAttribute("src", "greenOn.jpeg");
-		console.log("Red PRE STAGED!");
+		redCar.preStaged = true;
 	}
 	if (blueCar.racePosition > 50) {
 		document.getElementById("preStageRight").setAttribute("src", "greenOn.jpeg");
-		console.log("Blue PRE STAGED!");
+		blueCar.preStaged = true;
 	}
 }
 
 function checkStaged () {
-	console.log("Check Staged redCar " + redCar.racePosition);
-	console.log("Check Staged blueCar " + blueCar.racePosition);
-
 	if (redCar.racePosition > 70) {
 		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
-		console.log("Red STAGED!");
+		redCar.Staged = true;
 	}
 	if (blueCar.racePosition > 70) {
 		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
-		console.log("Blue STAGED!");
+		blueCar.Staged = true;
 	}
 
 	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
-		console.log("STAGED! Start the clock");
+		console.log("STAGED! SAM!   Start the clock");
 		myGame.preStaged = true;
 		//startTheRace();
 	}
 }
 
-function checkStart() {
-
-}
-
-
-
+function checkFalseStart() {
+	if (redCar.racePosition > 90) {
+		document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
+		redCar.falseStart = true;
+	}
+	if (blueCar.racePosition > 90) {
+		document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
+		blueCar.falseStart = true;
+	}
 }

@@ -137,44 +137,49 @@ function checkPreStaged () {
 }
 
 function checkStaged () {
-	if (redCar.racePosition > 70) {
-		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
-		redCar.Staged = true;
-	}
-	if (blueCar.racePosition > 70) {
-		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
-		blueCar.Staged = true;
-	}
+	//if (!checkFalseStart()) {
+		if (redCar.racePosition > 70) {
+			document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
+			redCar.Staged = true;
+		}
+		if (blueCar.racePosition > 70) {
+			document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
+			blueCar.Staged = true;
+		}
 
-	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
-		console.log("STAGED! SAM!   Start the clock");
-		myGame.preStaged = true;
-		startTheClock();
-	}
+		if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
+			console.log("STAGED! SAM!   Start the clock");
+			myGame.preStaged = true;
+			startTheClock();
+		}
+	//}
 }
 
 function checkFalseStart() {
-	if (redCar.racePosition > 85) {
-		document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
-		redCar.falseStart = true;
-	}
-	if (blueCar.racePosition > 85) {
-		document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
-		blueCar.falseStart = true;
-	}
+
+//	if (myGame.started = false) {
+
+		if (redCar.racePosition > 85) {
+			document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
+			redCar.falseStart = true;
+		}
+		if (blueCar.racePosition > 85) {
+			document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
+			blueCar.falseStart = true;
+		}
+//	}
 }
 
 function startTheClock() {
 	console.log("Clock has STARTED!");
 	setTimeout(changeLight("yellow1"), 100000);
-	setTimeout(changeLight("yellow2"), 200000);
-	setTimeout(changeLight("yellow3"), 300000);
-	setTimeout(changeLight("start"), 400000);
+	setTimeout(changeLight("yellow2"), 1000000);
+	setTimeout(changeLight("yellow3"), 10000000);
+	setTimeout(changeLight("start"), 100000000);
 }
 
 
 function changeLight(light) {
-
 	console.log(light);
 	if ((light === "yellow1") ||
 		(light === "yellow2") ||
@@ -183,12 +188,12 @@ function changeLight(light) {
 		document.getElementById(light + "Right").setAttribute("src", "yellowOn.jpeg");
 		document.getElementById(light + "Left").setAttribute("src", "yellowOn.jpeg");
 	}
-
 	if (light === "start") {
 		document.getElementById(light + "Right").setAttribute("src", "greenOn.jpeg");
 		document.getElementById(light + "Left").setAttribute("src", "greenOn.jpeg");
+		myGame.started = true;
+		console.log(myGame);
 	}
-
 }
 
 

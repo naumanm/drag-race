@@ -6,19 +6,19 @@
 	position: absolute;
 }
 
-#car1, #car2 {
+#redCar, #blueCar {
 	width: 50px;
 	height: 25px;
 	z-index: 100;
 }
 
-#car1 {
+#redCar {
 	margin-top: 30px;
 	background-color: red;
 	z-index: 100;
 }
 
-#car2 {
+#blueCar {
 	margin-top: 90px;
 	background-color: blue;
 }

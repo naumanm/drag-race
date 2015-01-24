@@ -59,16 +59,26 @@ Status API Training Shop Blog About
 
 window.onload = main;  // this should call the start, not main
 
-// Objects
-// need to define and instantiate both cars
+// need to define car and game object
 
 function Car() {
 	this.engine = "off";
 	this.racePosition = 0;
+	this.ID;
+	this.left = 0;	
+	this.right = 0;
 }
 
+function Game() {
+	this.preStaged = false;
+	this.staged = false;
+	this.started = false;
+}
+
+// instantiate cars and game object
 var redCar = new Car();
 var blueCar = new Car();
+var myGame = new Game;
 
 /* start button
 
@@ -80,22 +90,80 @@ function startGameButton () {
 
 */
 
+
+// ----------------------------------------------
+// this moves both cars left and right
+function main () {
+	redCar.ID = document.getElementById("redCar");
+	blueCar.ID = document.getElementById("blueCar");
+	window.addEventListener("keyup", function(event){
+
+	if (event.keyCode === 39) {
+
+		console.log("---------------------------------------");
+
+		console.log("Red Left = " + redCar.left);
+		console.log("Red Position = " + redCar.racePosition);
+
+		redCar.left = parseInt(redCar.left, 10) + 10 + "px";
+		redCar.racePosition += 10;
+
+		console.log("Red Left = " + redCar.left);
+		console.log("Red Position = " + redCar.racePosition);
+
+		checkPreStaged();
+		checkStaged();	
+		checkStart();
+	}
+
+	if (event.keyCode === 37) {
+		redCar.left = parseInt(redCar.left, 10) - 10 + "px";
+		redCar.racePosition -= 10;		
+	}
+
+	if (event.keyCode === 83) {
+		blueCar.left = parseInt(blueCar.left, 10) + 10 + "px";
+		blueCar.racePosition += 10;
+		checkPreStaged();
+		checkStaged();
+		checkStart();
+	}
+
+	if (event.keyCode === 65) {
+		blueCar.style.left = parseInt(blueCar.left, 10) - 10 + "px";
+		blueCar.racePosition -= 10;
+	}
+
+});
+
+function checkPreStaged () {
+	if (redCar.racePosition > 50) {
+		document.getElementById("preStageLeft").setAttribute("src", "greenOn.jpeg");
+		console.log("Red PRE STAGED!");
+	}
+	if (blueCar.racePosition > 50) {
+		document.getElementById("preStageRight").setAttribute("src", "greenOn.jpeg");
+		console.log("Blue PRE STAGED!");
+	}
+}
+
 function checkStaged () {
-	console.log("redCar " + redCar.racePosition);
-	console.log("redCar " + blueCar.racePosition);
+	console.log("Check Staged redCar " + redCar.racePosition);
+	console.log("Check Staged blueCar " + blueCar.racePosition);
 
 	if (redCar.racePosition > 70) {
-		console.log("in lightChanger");
 		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
+		console.log("Red STAGED!");
 	}
 	if (blueCar.racePosition > 70) {
-		console.log("in lightChanger");
 		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
+		console.log("Blue STAGED!");
 	}
 
-	if ((redCar.racePosition > 70) && (redCar.racePosition > 70)) {
-
-		console.log("START THE CLOCK!");
+	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
+		console.log("STAGED! Start the clock");
+		myGame.preStaged = true;
+		//startTheRace();
 	}
 }
 
@@ -103,56 +171,6 @@ function checkStart() {
 
 }
 
-// ----------------------------------------------
-// this moves both cars left and right
-function main () {
-	var car1 = document.getElementById("car1");
-	var car2 = document.getElementById("car2");
 
-	// car1 = initializeCar(car1);
-	// car2 = initializeCar(car2);
-
-	// function initializeCar (car) {
-	// 	return (car.style.left = "0px");
-	// }
-
-	car1.style.left = "0px";	
-	car2.style.left = "0px";
-	car1.style.right = "0px";
-	car2.style.right = "0px";
-
-	window.addEventListener('keyup', function(event){
-
-
-	function moveCar(myKeyCode) {
-
-	}
-
-
-		if (event.keyCode === 39) {
-			car1.style.left = parseInt(car1.style.left, 10) + 10 + "px";
-			redCar.racePosition += 10;
-			checkStaged();
-			checkStart();
-		}
-
-		if (event.keyCode === 37) {
-			car1.style.left = parseInt(car1.style.left, 10) - 10 + "px";
-			redCar.racePosition -= 10;		
-		}
-
-		if (event.keyCode === 83) {
-			car2.style.left = parseInt(car2.style.left, 10) + 10 + "px";
-			blueCar.racePosition += 10;
-			console.log("blueCar " + blueCar.racePosition);
-		}
-
-		if (event.keyCode === 65) {
-			car2.style.left = parseInt(car2.style.left, 10) - 10 + "px";
-			blueCar.racePosition -= 10;
-			console.log("blueCar " + blueCar.racePosition);
-		}
-
-	});
 
 }

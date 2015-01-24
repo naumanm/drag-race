@@ -84,6 +84,9 @@ function Game() {
 	this.started = false;
 }
 
+// need a game loop that listens for change to any car
+// or the game instance
+
 // ----------------------------------------------
 // moves cars and calls checks
 
@@ -114,6 +117,7 @@ function Game() {
 		blueCar.racePosition -= 5;
 	}
 
+	// these should be in a game loop
 	checkPreStaged();
 	checkStaged();	
 	checkFalseStart();
@@ -145,17 +149,50 @@ function checkStaged () {
 	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
 		console.log("STAGED! SAM!   Start the clock");
 		myGame.preStaged = true;
-		//startTheRace();
+		startTheClock();
 	}
 }
 
 function checkFalseStart() {
-	if (redCar.racePosition > 90) {
+	if (redCar.racePosition > 85) {
 		document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
 		redCar.falseStart = true;
 	}
-	if (blueCar.racePosition > 90) {
+	if (blueCar.racePosition > 85) {
 		document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
 		blueCar.falseStart = true;
 	}
 }
+
+function startTheClock() {
+	console.log("Clock has STARTED!");
+	setTimeout(changeLight("yellow1"), 100000);
+	setTimeout(changeLight("yellow2"), 200000);
+	setTimeout(changeLight("yellow3"), 300000);
+	setTimeout(changeLight("start"), 400000);
+}
+
+
+function changeLight(light) {
+
+	console.log(light);
+	if ((light === "yellow1") ||
+		(light === "yellow2") ||
+		(light === "yellow3")) {
+
+		document.getElementById(light + "Right").setAttribute("src", "yellowOn.jpeg");
+		document.getElementById(light + "Left").setAttribute("src", "yellowOn.jpeg");
+	}
+
+	if (light === "start") {
+		document.getElementById(light + "Right").setAttribute("src", "greenOn.jpeg");
+		document.getElementById(light + "Left").setAttribute("src", "greenOn.jpeg");
+	}
+
+}
+
+
+
+
+
+

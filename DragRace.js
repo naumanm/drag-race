@@ -126,6 +126,7 @@ function Game() {
 }
 
 function checkPreStaged () {
+// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 50) {
 		document.getElementById("preStageLeft").setAttribute("src", "greenOn.jpeg");
 		redCar.preStaged = true;
@@ -137,7 +138,7 @@ function checkPreStaged () {
 }
 
 function checkStaged () {
-
+// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 70) {
 		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
 		redCar.Staged = true;
@@ -154,7 +155,7 @@ function checkStaged () {
 }
 
 function checkFalseStart() {
-
+// TODO: style this more than the light
 	if (!myGame.started) {
 
 		if (redCar.racePosition > 85) {
@@ -172,7 +173,7 @@ function checkFalseStart() {
 }
 
 function checkFinish() {
-
+// TODO: Style this not throw alerts
 		if (redCar.racePosition > 550) {
 			alert("red wins");
 			redCar.winnner = true;
@@ -184,6 +185,7 @@ function checkFinish() {
 }
 
 function startTheClock() {
+// TODO: no delay, need to make work	
 	setTimeout(changeLight("yellow1"), 100000);
 	setTimeout(changeLight("yellow2"), 1000000);
 	setTimeout(changeLight("yellow3"), 10000000);
@@ -191,6 +193,9 @@ function startTheClock() {
 }
 
 function changeLight(light) {
+// TODO: MUST refactor, need more arguments, left&right, On&Off
+// all lights should be part of the Christmas tree object
+
 	if ((light === "yellow1") ||
 		(light === "yellow2") ||
 		(light === "yellow3")) {

@@ -84,6 +84,7 @@ function Game() {
 	this.started = false;
 }
 
+
 // need a game loop that listens for change to any car
 // or the game instance
 
@@ -100,6 +101,7 @@ function Game() {
  
  	window.addEventListener('keyup', function(event){
 
+ 	// should this be a case?
 	if (event.keyCode === 39) {
 		car1.style.left = parseInt(car1.style.left, 10) + 5 + "px";
 		redCar.racePosition += 5;
@@ -185,11 +187,12 @@ function checkFinish() {
 }
 
 function startTheClock() {
-// TODO: no delay, need to make work	
-	setTimeout(changeLight("yellow1"), 100000);
-	setTimeout(changeLight("yellow2"), 1000000);
-	setTimeout(changeLight("yellow3"), 10000000);
-	setTimeout(changeLight("start"), 100000000);
+
+	setTimeout(function () {changeLight("yellow1");}, 500);
+	setTimeout(function () {changeLight("yellow2");}, 1000);
+	setTimeout(function () {changeLight("yellow3");}, 1500);
+	setTimeout(function () {changeLight("start");}, 2000);
+
 }
 
 function changeLight(light) {
@@ -216,4 +219,3 @@ function changeLight(light) {
 	}
 
 }
-

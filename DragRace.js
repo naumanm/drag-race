@@ -7,7 +7,7 @@ initializes keyboard listeners
 pre-stage event listeners wait for both cars to be in 
 pre stage, trigger the tree.
 
-The tree is the Ground Launch Sequencer, prompts user, trigger 
+The tree prompts user, triggers 
 lights, need listner for a car jumping the gun and finish
 line.  Clock starts on green light
 
@@ -64,6 +64,8 @@ var redCar = new Car();
 var blueCar = new Car();
 var myGame = new Game();
 
+// for the timer
+	var myTimer;
 
 // define car and game object
 function Car() {
@@ -75,7 +77,7 @@ function Car() {
 	this.preStaged = false;
 	this.staged = false;
 	this.falseStart = false;
-	this.winnner = false;
+	this.winner = false;
 }
 
 function Game() {
@@ -157,6 +159,19 @@ function checkStaged () {
 	}
 }
 
+function startTheClock() {
+	setTimeout(function () {changeLight("yellow1", "Left", "On");}, 500);
+	setTimeout(function () {changeLight("yellow1", "Right", "On");}, 500);
+	setTimeout(function () {changeLight("yellow2", "Left", "On");}, 1000);
+	setTimeout(function () {changeLight("yellow2", "Right", "On");}, 1000);
+	setTimeout(function () {changeLight("yellow3", "Left", "On");}, 1500);
+	setTimeout(function () {changeLight("yellow3", "Right", "On");}, 1500);
+	setTimeout(function () {changeLight("start", "Left", "On");}, 2000);
+	setTimeout(function () {changeLight("start", "Right", "On");}, 2000);
+	setTimeout(function () {gameTimer();}, 2000);
+
+}
+
 function checkFalseStart() {
 	// TODO: style this more than the light
 	if (!myGame.started) {
@@ -175,46 +190,40 @@ function checkFalseStart() {
 function checkFinish() {
 	// TODO: Style this not throw alerts
 	if (redCar.racePosition > 550) {
-		alert("red wins");
+		alert("red wins: ");
+		stopTimer();
 		redCar.winnner = true;
+		myGame.winnner = true;		
 	}
 	if (blueCar.racePosition > 550) {
-		alert("blue wins");
+		alert("blue wins: ");
+		stopTimer();
 		blueCar.winnner = true;
+		myGame.winnner = true;		
 	}
-}
-
-function startTheClock() {
-	setTimeout(function () {changeLight("yellow1", "Left", "On");}, 500);
-	setTimeout(function () {changeLight("yellow1", "Right", "On");}, 500);
-	setTimeout(function () {changeLight("yellow2", "Left", "On");}, 1000);
-	setTimeout(function () {changeLight("yellow2", "Right", "On");}, 1000);
-	setTimeout(function () {changeLight("yellow3", "Left", "On");}, 1500);
-	setTimeout(function () {changeLight("yellow3", "Right", "On");}, 1500);
-	setTimeout(function () {changeLight("start", "Left", "On");}, 2000);
-	setTimeout(function () {changeLight("start", "Right", "On");}, 2000);
-	setTimeout(function () {gameTimer();}, 2000);
-
 }
 
 function gameTimer() {
 
-var start = new Date().getTime(), elapsed = '0.0';
+	//var endTimer;
 
+	myTimer = setInterval(function()
+	{
+	    console.log(Date());
 
-window.setInterval(function()
-{
-    var time = new Date().getTime() - start;
-
-    elapsed = Math.floor(time / 100) / 10;
-    if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }
-
-    console.log(elapsed);
-
-}, 100);
+	    if (myGame.winner) {
+	    	endTimer = Date();
+		    console.log("Winner: " + Date());
+		    window.clearInterval();
+		    return true;
+	    }
+	}, 100);
 
 }
 
+function stopTimer() {
+    clearTimeout(myTimer);
+}
 
 function changeLight(light, side, myState ) {
 	// TODO: refactor, all lights should be part of the Christmas tree object

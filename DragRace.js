@@ -56,24 +56,15 @@ The AI should be able to navigate the race track, and your car should only be ab
 Status API Training Shop Blog About
 */
 
+// TODO: use prototype in my classes if I need to.
+
 window.onload = main;
-
-// instantiate cars and game object
-
-var redCar = new Car();
-var blueCar = new Car();
-var myGame = new Game();
-
-// for the timer
-	var myTimer;
 
 // define car and game object
 function Car() {
 	this.engine = "off";
 	this.racePosition = 0;
 	this.ID = "";
-	this.left = 0;	
-	this.right = 0;
 	this.preStaged = false;
 	this.staged = false;
 	this.falseStart = false;
@@ -88,6 +79,14 @@ function Game() {
 	this.redTime = 0;
 	this.blueTime = 0;
 }
+// instantiate cars and game object
+
+redCar = new Car();
+blueCar = new Car();
+myGame = new Game();
+
+// for the timer
+var myTimer;
 
 
 // need a game loop that listens for change to any car
@@ -97,30 +96,31 @@ function Game() {
 // moves cars and calls checks
 
  function main () {
- 	var car1 = document.getElementById("redCar");
- 	var car2 = document.getElementById("blueCar");
- 	car1.style.left = "0px";
- 	car2.style.left = "0px";
- 	car1.style.right = "0px";
- 	car2.style.right = "0px";
+
+ 	var $car1 = document.getElementById("redCar");
+ 	var $car2 = document.getElementById("blueCar");
+ 	$car1.style.left = "0px";
+ 	$car2.style.left = "0px";
+ 	$car1.style.right = "0px";
+ 	$car2.style.right = "0px";
  
- 	window.addEventListener('keyup', function(event){
+ 	window.addEventListener('keydown', function(event){
 
  	// should this be a case?
 	if (event.keyCode === 39) {
-		car1.style.left = parseInt(car1.style.left, 10) + 5 + "px";
+		$car1.style.left = parseInt($car1.style.left, 10) + 5 + "px";
 		redCar.racePosition += 5;
 	}
 	if (event.keyCode === 37) {
-		car1.style.left = parseInt(car1.style.left, 10) - 5 + "px";
+		$car1.style.left = parseInt($car1.style.left, 10) - 5 + "px";
 		redCar.racePosition -= 5;
 	}
 	if (event.keyCode === 83) {
-		car2.style.left = parseInt(car2.style.left, 10) + 5 + "px";
+		$car2.style.left = parseInt($car2.style.left, 10) + 5 + "px";
 		blueCar.racePosition += 5;
 	}
 	if (event.keyCode === 65) {
-		car2.style.left = parseInt(car2.style.left, 10) - 5 + "px";
+		$car2.style.left = parseInt($car2.style.left, 10) - 5 + "px";
 		blueCar.racePosition -= 5;
 	}
 
@@ -177,10 +177,12 @@ function checkFalseStart() {
 	if (!myGame.started) {
 		if (redCar.racePosition > 85) {
 			changeLight("red", "Left", "On");
+			alert("Red loses");
 			redCar.falseStart = true;
 		}
 		if (blueCar.racePosition > 85) {
 			changeLight("red", "Right", "On");
+			alert("Blue loses");
 			blueCar.falseStart = true;
 		}
 	return false;
@@ -218,7 +220,6 @@ function gameTimer() {
 		    return true;
 	    }
 	}, 100);
-
 }
 
 function stopTimer() {

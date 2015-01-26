@@ -64,8 +64,8 @@ var redCar = new Car();
 var blueCar = new Car();
 var myGame = new Game();
 
-// define car and game object
 
+// define car and game object
 function Car() {
 	this.engine = "off";
 	this.racePosition = 0;
@@ -82,7 +82,7 @@ function Game() {
 	this.preStaged = false;
 	this.staged = false;
 	this.started = false;
-	this.gameTimer = false;
+	this.gameTime = false;
 	this.redTime = 0;
 	this.blueTime = 0;
 }
@@ -131,7 +131,6 @@ function Game() {
 }
 
 function checkPreStaged () {
-	// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 50) {
 		changeLight("preStage", "Left", "On");
 		redCar.preStaged = true;
@@ -146,15 +145,14 @@ function checkStaged () {
 	// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 70) {
 		changeLight("stage", "Left", "On");
-		redCar.Staged = true;
+		redCar.staged = true;
 	}
 	if (blueCar.racePosition > 70) {
 		changeLight("stage", "Right", "On");
-		blueCar.Staged = true;
+		blueCar.staged = true;
 	}
-	//TODO: this should use the Car.staged flag not position
-	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
-		myGame.preStaged = true;
+	if ((redCar.staged) && (blueCar.staged = true)) {
+		myGame.staged = true;
 		startTheClock();
 	}
 }
@@ -195,13 +193,31 @@ function startTheClock() {
 	setTimeout(function () {changeLight("yellow3", "Right", "On");}, 1500);
 	setTimeout(function () {changeLight("start", "Left", "On");}, 2000);
 	setTimeout(function () {changeLight("start", "Right", "On");}, 2000);
-
-	//startGameTimer(); need to define this.
+	setTimeout(function () {gameTimer();}, 2000);
 
 }
 
+function gameTimer() {
+
+var start = new Date().getTime(), elapsed = '0.0';
+
+
+window.setInterval(function()
+{
+    var time = new Date().getTime() - start;
+
+    elapsed = Math.floor(time / 100) / 10;
+    if(Math.round(elapsed) == elapsed) { elapsed += '.0'; }
+
+    console.log(elapsed);
+
+}, 100);
+
+}
+
+
 function changeLight(light, side, myState ) {
-	// TODO: MUST refactor, all lights should be part of the Christmas tree object
+	// TODO: refactor, all lights should be part of the Christmas tree object
 	if (light === "preStage") { 
 		document.getElementById("preStage" + side).setAttribute("src", "green" + myState + ".jpeg");
 	}

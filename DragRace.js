@@ -82,6 +82,9 @@ function Game() {
 	this.preStaged = false;
 	this.staged = false;
 	this.started = false;
+	this.gameTimer = false;
+	this.redTime = 0;
+	this.blueTime = 0;
 }
 
 
@@ -128,28 +131,28 @@ function Game() {
 }
 
 function checkPreStaged () {
-// TODO: should update the Christmas Tree object
+	// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 50) {
-		document.getElementById("preStageLeft").setAttribute("src", "greenOn.jpeg");
+		changeLight("preStage", "Left", "On");
 		redCar.preStaged = true;
 	}
 	if (blueCar.racePosition > 50) {
-		document.getElementById("preStageRight").setAttribute("src", "greenOn.jpeg");
+		changeLight("preStage", "Right", "On");
 		blueCar.preStaged = true;
 	}
 }
 
 function checkStaged () {
-// TODO: should update the Christmas Tree object
+	// TODO: should update the Christmas Tree object
 	if (redCar.racePosition > 70) {
-		document.getElementById("stageLeft").setAttribute("src", "greenOn.jpeg");
+		changeLight("stage", "Left", "On");
 		redCar.Staged = true;
 	}
 	if (blueCar.racePosition > 70) {
-		document.getElementById("stageRight").setAttribute("src", "greenOn.jpeg");
+		changeLight("stage", "Right", "On");
 		blueCar.Staged = true;
 	}
-
+	//TODO: this should use the Car.staged flag not position
 	if ((redCar.racePosition > 70) && (blueCar.racePosition > 70)) {
 		myGame.preStaged = true;
 		startTheClock();
@@ -157,17 +160,14 @@ function checkStaged () {
 }
 
 function checkFalseStart() {
-// TODO: style this more than the light
+	// TODO: style this more than the light
 	if (!myGame.started) {
-
 		if (redCar.racePosition > 85) {
-			//changeLight("red");
-			document.getElementById("redLeft").setAttribute("src", "redOn.jpeg");
+			changeLight("red", "Left", "On");
 			redCar.falseStart = true;
 		}
 		if (blueCar.racePosition > 85) {
-			//changeLight("red");
-			document.getElementById("redRight").setAttribute("src", "redOn.jpeg");
+			changeLight("red", "Right", "On");
 			blueCar.falseStart = true;
 		}
 	return false;
@@ -175,47 +175,53 @@ function checkFalseStart() {
 }
 
 function checkFinish() {
-// TODO: Style this not throw alerts
-		if (redCar.racePosition > 550) {
-			alert("red wins");
-			redCar.winnner = true;
-		}
-		if (blueCar.racePosition > 550) {
-			alert("blue wins");
-			blueCar.winnner = true;
-		}
+	// TODO: Style this not throw alerts
+	if (redCar.racePosition > 550) {
+		alert("red wins");
+		redCar.winnner = true;
+	}
+	if (blueCar.racePosition > 550) {
+		alert("blue wins");
+		blueCar.winnner = true;
+	}
 }
 
 function startTheClock() {
+	setTimeout(function () {changeLight("yellow1", "Left", "On");}, 500);
+	setTimeout(function () {changeLight("yellow1", "Right", "On");}, 500);
+	setTimeout(function () {changeLight("yellow2", "Left", "On");}, 1000);
+	setTimeout(function () {changeLight("yellow2", "Right", "On");}, 1000);
+	setTimeout(function () {changeLight("yellow3", "Left", "On");}, 1500);
+	setTimeout(function () {changeLight("yellow3", "Right", "On");}, 1500);
+	setTimeout(function () {changeLight("start", "Left", "On");}, 2000);
+	setTimeout(function () {changeLight("start", "Right", "On");}, 2000);
 
-	setTimeout(function () {changeLight("yellow1");}, 500);
-	setTimeout(function () {changeLight("yellow2");}, 1000);
-	setTimeout(function () {changeLight("yellow3");}, 1500);
-	setTimeout(function () {changeLight("start");}, 2000);
+	//startGameTimer(); need to define this.
 
 }
 
-function changeLight(light) {
-// TODO: MUST refactor, need more arguments, left&right, On&Off
-// all lights should be part of the Christmas tree object
-
+function changeLight(light, side, myState ) {
+	// TODO: MUST refactor, all lights should be part of the Christmas tree object
+	if (light === "preStage") { 
+		document.getElementById("preStage" + side).setAttribute("src", "green" + myState + ".jpeg");
+	}
+	if (light === "stage") {
+		document.getElementById("stage" + side).setAttribute("src", "green" + myState + ".jpeg");
+	}
 	if ((light === "yellow1") ||
 		(light === "yellow2") ||
 		(light === "yellow3")) {
 
-		document.getElementById(light + "Right").setAttribute("src", "yellowOn.jpeg");
-		document.getElementById(light + "Left").setAttribute("src", "yellowOn.jpeg");
+		var myLight = light.substring(0, light.length - 1);
+		// light is yellow1 but image is yellowOn and yellowOff becoming 
+		document.getElementById(light + side).setAttribute("src", myLight + myState + ".jpeg");
 	}
 	if (light === "start") {
-		document.getElementById(light + "Right").setAttribute("src", "greenOn.jpeg");
-		document.getElementById(light + "Left").setAttribute("src", "greenOn.jpeg");
+		document.getElementById(light + side).setAttribute("src", "green" + myState + ".jpeg");
 		myGame.started = true;
 	}
-
 	if (light === "red") {
-		document.getElementById(light + "Right").setAttribute("src", "redOn.jpeg");
-		document.getElementById(light + "Left").setAttribute("src", "redOn.jpeg");
+		document.getElementById(light + side).setAttribute("src", "red" + myState + ".jpeg");
 		myGame.started = true;
 	}
-
 }
